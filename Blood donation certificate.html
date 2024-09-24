@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Certificate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://media.istockphoto.com/id/1077654082/vector/abstract-guilloche-pattern.jpg?s=612x612&w=0&k=20&c=VSOtu95bZdWkYK0YG4gWmWdrcr1PlnPLHON-paKzQBk=') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .certificate {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 2px solid #000;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        .certificate h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .certificate p {
+            text-align: justify;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .date {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .generate-btn, .logout-btn {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .generate-btn:hover, .logout-btn:hover {
+            background-color: #45a049;
+        }
+        .centered {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <h2>Blood Donation Certificate</h2>
+        <form id="certificateForm">
+            <div class="form-group">
+                <label for="donorName">Donor Name:</label>
+                <input type="text" id="donorName" placeholder="Enter donor name" required>
+            </div>
+            <div class="form-group">
+                <label for="donationDate">Donation Date:</label>
+                <input type="date" id="donationDate" required>
+            </div>
+            <div class="centered">
+                <button type="button" class="generate-btn" onclick="generateCertificate()">Generate Certificate</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="certificate" id="generatedCertificate" style="display:none;">
+        <h2>Blood Donation Certificate</h2>
+        <p><strong>Donor Name:</strong> <span id="displayDonorName"></span></p>
+        <p><strong>Date of Donation:</strong> <span id="displayDonationDate"></span></p>
+        <center>
+            <h2>This certifies that the above individual has donated blood and is committed to saving lives through blood donation.</h2>
+        </center>
+        <div class="centered">
+            <button class="logout-btn" onclick="window.location.href='logout.html'">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        function generateCertificate() {
+            // Get values from form inputs
+            const donorName = document.getElementById('donorName').value;
+            const donationDate = document.getElementById('donationDate').value;
+
+            // Ensure both fields are filled
+            if (donorName && donationDate) {
+                // Set the entered values into the certificate
+                document.getElementById('displayDonorName').textContent = donorName;
+                document.getElementById('displayDonationDate').textContent = donationDate;
+
+                // Hide the form and show the generated certificate
+                document.getElementById('certificateForm').style.display = 'none';
+                document.getElementById('generatedCertificate').style.display = 'block';
+            } else {
+                alert('Please fill in both the Donor Name and the Donation Date.');
+            }
+        }
+    </script>
+</body>
+</html>

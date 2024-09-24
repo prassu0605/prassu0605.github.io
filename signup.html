@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Sign-Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('sign up image.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 60%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .form-group button {
+            background-color: #5cb85c;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sign Up to Donate Blood</h1>
+        <div class="info">
+            <h2>About Blood Donation</h2>
+            <p>Blood donation is a voluntary procedure that can help save the lives of others. There are several types of blood donations, including whole blood, platelets, and plasma.</p>
+            <h3>Types of Donations</h3>
+            <ul>
+                <li><strong>Whole Blood Donation:</strong> The most common type, where approximately a pint of whole blood is given. It can be separated into its components: red cells, plasma, and platelets.</li>
+                <li><strong>Plasma Donation:</strong> Plasma is the liquid portion of blood. It carries water, salts, and enzymes. Plasma donation helps patients with liver conditions, burns, and blood clotting disorders.</li>
+            </ul>
+            <h3>Eligibility</h3>
+            <p>To donate blood, you must be in good health, at least 17 years old, and weigh at least 110 pounds. Other eligibility requirements apply.</p>
+            <h4>Before You Start</h4>
+            <p>Find out where you can donate</p>
+            <p>Manage your appointments</p>
+            <p>Update your details</p>
+            <p>View donation history and achievements</p>
+        </div>
+        <form action="/submit_donation" method="post">
+            <div class="form-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="bloodGroup">Blood Group:</label>
+                <select id="bloodGroup" name="bloodGroup" required>
+                    <option value="">Select Blood Group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="donationType">Type of Donation:</label>
+                <select id="donationType" name="donationType" required>
+                    <option value="whole">Whole Blood</option>
+                    <option value="plasma">Plasma</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="contactNumber">Contact Number:</label>
+                <input type="tel" id="contactNumber" name="contactNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <a href="Donorfit.html">
+                    <button type="button" value="submit">Submit</button>
+                </a>
+            </div>
+        </form>
+    </div>
+    <script>
+        function validateForm() {
+            var form = document.getElementById("donationForm");
+            var notification = document.getElementById("notification");
+            if (form.checkValidity()) {
+                form.submit();
+            } else {
+                notification.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

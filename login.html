@@ -1,0 +1,76 @@
+<html>
+<head>
+    <title>BLOOD BANK MANAGEMENT SYSTEM</title>
+    <link rel="stylesheet" href="Donar login.html">
+    <style>
+        body {
+            background-image: url('login image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+        }
+        form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            margin-top: 100px;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        .register-link {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <form>
+            <h2>LOGIN</h2>
+            <form id="login page" action="login form.php" method="post">
+            <label for="r1" id="u_n">Username</label>
+            <input type="text" name="username" id="r1" placeholder="Username" required>
+            
+            <label for="r2" id="password">Password</label>
+            <input type="password" name="password" id="r2" required>
+
+            <a href="Donorfit.html">
+                <button type="button" value="submit">Login</button>
+            </a>
+        </form>
+    </center>
+    
+    <div class="register-link">
+        <center>
+            <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+        </center>
+    </div>
+</body>
+</html>

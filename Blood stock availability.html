@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Stock Availability</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('blood stock availability image.webp'); /* Replace with your actual image URL */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Slight transparency for better readability */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Blood Stock Availability</h1>
+        <div>
+            <label for="stateSelect">Select state:</label>
+            <select id="stateSelect" onchange="updateChart()">
+                <option value="all">All states</option>
+                <option value="TAMILNADU">TAMILNADU</option>
+                <option value="ANDHRA PRADESH">ANDHRA PRADESH</option>
+                <option value="TELANGANA">TELANGANA</option>
+                <!-- Add more districts as needed -->
+            </select>
+        </div>
+        <canvas id="bloodStockChart"></canvas>
+    </div>
+
+    <script>
+        const bloodStockData = {
+            'TAMILNADU': { 'A+': 17, 'A-': 9, 'B+': 17, 'B-': 5, 'AB+': 11, 'AB-': 3, 'O+': 22, 'O-': 7 },
+            'ANDHRA PRADESH': { 'A+': 11, 'A-': 6, 'B+': 13, 'B-': 5, 'AB+': 9, 'AB-': 3, 'O+': 15, 'O-': 5 },
+            'TELANGANA': { 'A+': 9, 'A-': 4, 'B+': 10, 'B-': 2, 'AB+': 8, 'AB-': 2, 'O+': 14, 'O-': 6 },
+        };
+
+        const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+        
+        let chart = null;
+
+        function createChart(data) {
+            const ctx = document.getElementById('bloodStockChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: bloodTypes,
+                    datasets: [{
+                        label: 'Blood Units Available',
+                        data: data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChart() {
+            const selectedstate = document.getElementById('stateSelect').value;
+            let data;
+            if (selectedstate === 'all') {
+                data = bloodTypes.map(type => {
+                    return Object.values(bloodStockData).reduce((sum, state) => sum + state[type], 0);
+                });
+            } else {
+                data = bloodTypes.map(type => bloodStockData[selectedstate][type]);
+            }
+
+            chart.data.datasets[0].data = data;
+            chart.update();
+        }
+
+        // Initial chart creation with all districts data
+        const initialData = bloodTypes.map(type => {
+            return Object.values(bloodStockData).reduce((sum, state) => sum + state[type], 0);
+        });
+
+        createChart(initialData);
+    </script>
+    <div class="form-group">
+        <center>
+        <a href="Blood donation certificate.html">
+            <button type="button" value="Blood donation certificate">Blood donation certificate</button>
+        </a>
+        </center>
+    </div>
+</body>
+</html>

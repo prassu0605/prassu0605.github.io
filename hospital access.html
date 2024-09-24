@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Eligibility</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('hospital access image.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .result {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .certificate-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .certificate-link a {
+            background-color: #007bff;
+            color: white;
+            padding: 5px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .certificate-link a:hover {
+            background-color: #0056b3;
+        }
+        .donation-form {
+            margin-top: 20px;
+        }
+        .donation-form input[type="submit"] {
+            background-color: #17a2b8;
+        }
+        .donation-form input[type="submit"]:hover {
+            background-color: #138496;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Blood Donation Eligibility Form</h2>
+    
+    <form id="eligibilityForm">
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" min="18" max="65" required>
+        </div>
+        <div class="form-group">
+            <label for="weight">Weight (in kg)</label>
+            <input type="number" id="weight" name="weight" min="50" required>
+        </div>
+        <div class="form-group">
+            <label for="healthStatus">Health Status</label>
+            <select id="healthStatus" name="healthStatus" required>
+                <option value="">Select your health status</option>
+                <option value="good">Good</option>
+                <option value="poor">Poor</option>
+            </select>
+        </div>
+        <input type="submit" value="Check Eligibility">
+    </form>
+
+    <div class="result hidden" id="result"></div>
+
+    <div id="stockForm" class="hidden">
+        <h2>Check Blood Stock Availability</h2>
+        <form id="stockCheckForm">
+            <div class="form-group">
+                <label for="bloodType">Blood Type</label>
+                <select id="bloodType" name="bloodType" required>
+                    <option value="">Select Blood Type</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
+            <input type="submit" value="Check Stock">
+        </form>
+        <div class="result hidden" id="stockResult"></div>
+
+        <!-- Donation Form -->
+        <div id="donationForm" class="hidden donation-form">
+            <h2>Complete Your Donation</h2>
+            <form id="donationDetailsForm">
+                <div class="form-group">
+                    <label for="donorName">Full Name</label>
+                    <input type="text" id="donorName" name="donorName" required>
+                </div>
+                <div class="form-group">
+                    <label for="donationDate">Donation Date</label>
+                    <input type="date" id="donationDate" name="donationDate" required>
+                </div>
+                <input type="submit" value="Submit Donation">
+            </form>
+            <div class="result hidden" id="donationResult"></div>
+        </div>
+
+        <!-- Link to Donor Certificate -->
+        <div class="certificate-link hidden" id="certificateLink">
+            <a href="Blood donation certificate.html" target="_blank">Generate Donor Certificate</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const eligibilityForm = document.getElementById('eligibilityForm');
+    const resultDiv = document.getElementById('result');
+    const stockForm = document.getElementById('stockForm');
+    const stockCheckForm = document.getElementById('stockCheckForm');
+    const stockResultDiv = document.getElementById('stockResult');
+    const donationForm = document.getElementById('donationForm');
+    const donationDetailsForm = document.getElementById('donationDetailsForm');
+    const donationResultDiv = document.getElementById('donationResult');
+    const certificateLinkDiv = document.getElementById('certificateLink');
+
+    // Function to check eligibility
+    eligibilityForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const age = parseInt(document.getElementById('age').value);
+        const weight = parseInt(document.getElementById('weight').value);
+        const healthStatus = document.getElementById('healthStatus').value;
+
+        if (age >= 18 && age <= 65 && weight >= 50 && healthStatus === 'good') {
+            resultDiv.textContent = "You are eligible to donate blood!";
+            resultDiv.classList.remove('hidden');
+            resultDiv.style.color = 'green';
+            stockForm.classList.remove('hidden');
+        } else {
+            resultDiv.textContent = "You are not eligible to donate blood.";
+            resultDiv.classList.remove('hidden');
+            resultDiv.style.color = 'red';
+            stockForm.classList.add('hidden');
+        }
+    });
+
+    // Function to check blood stock
+    stockCheckForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const bloodType = document.getElementById('bloodType').value;
+
+        // Simulating stock check with a simple condition
+        if (bloodType) {
+            stockResultDiv.textContent = `Checking stock for ${bloodType}...`;
+            stockResultDiv.classList.remove('hidden');
+            setTimeout(() => {
+                stockResultDiv.textContent = `${bloodType} is available in stock!`;
+                donationForm.classList.remove('hidden'); // Show the donation form after stock check
+            }, 1000); // Simulate delay
+        }
+    });
+
+    // Function to handle donation form submission
+    donationDetailsForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const donorName = document.getElementById('donorName').value;
+        const donationDate = document.getElementById('donationDate').value;
+
+        donationResultDiv.textContent = `Thank you, ${donorName}, for donating blood on ${donationDate}!`;
+        donationResultDiv.classList.remove('hidden');
+        certificateLinkDiv.classList.remove('hidden'); // Show the donor certificate link
+    });
+</script>
+
+</body>
+</html>
